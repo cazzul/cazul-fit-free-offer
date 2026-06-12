@@ -9,7 +9,7 @@ Tu página está **completa y funcionando**. v0 dejó todo el código bien; lo �
 Abre la Terminal, entra a la carpeta del proyecto y corre:
 
 ```bash
-cd ruta/a/fitness-guide
+cd ruta/a/cazil-fit-free-offer
 npm install
 npm run dev
 ```
