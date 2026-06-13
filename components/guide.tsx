@@ -73,17 +73,17 @@ const exerciseVariations = [
   },
   {
     src: "/images/exercises/curl-martillo.png",
-    alt: "Curl martillo con mancuernas",
-    caption: "Curl martillo (antebrazo)",
+    alt: "Curl con mancuernas",
+    caption: "Curl con Mancuernas",
   },
 ]
 
 const mealPlanRows = [
   [
     "Pre-entreno",
-    "450",
+    "480",
     "6 g",
-    "103 g",
+    "110 g",
     "1 g",
     "Crema de arroz 85 g, 1 guineo, miel 15 g",
   ],
@@ -93,7 +93,7 @@ const mealPlanRows = [
     "52 g",
     "92 g",
     "4 g",
-    "Arroz blanco 110 g, pechuga de pollo 120 g, brócoli, cebolla y pimientos",
+    "Arroz blanco 110 g, pechuga de pollo 120 g, brócoli, cebolla y pimientos, queso cheddar sin grasa 20 g",
   ],
   [
     "Comida 1",
@@ -101,21 +101,21 @@ const mealPlanRows = [
     "75 g",
     "77 g",
     "6 g",
-    "Papas 400 g, pechuga de pollo 180 g, brócoli, cebolla y pimientos",
+    "Papas 400 g, pechuga de pollo 180 g, brócoli, cebolla y pimientos, queso cheddar sin grasa 40 g",
   ],
   [
     "Comida 2",
-    "560",
+    "570",
     "15 g",
-    "90 g",
+    "91 g",
     "10 g",
     "Avena 100 g, blueberries 85 g, piña 85 g, barra de chocolate negro 15 g",
   ],
   [
     "Total del día",
-    "2,390",
+    "2,430",
     "148 g",
-    "362 g",
+    "370 g",
     "21 g",
     "",
   ],
@@ -441,6 +441,7 @@ export function Guide() {
                 rows={[
                   ["Jalón al pecho (agarre abierto)", "2"],
                   ["Remo (agarre abierto)", "2"],
+                  ["Pullovers", "2"],
                   ["Bicep curl (cualquiera)", "2"],
                   ["Hammer curl", "2"],
                   ["Curl femoral", "2"],
@@ -455,6 +456,25 @@ export function Guide() {
             rows={mealPlanRows}
             boldLastRow
           />
+
+          <div className="mt-8 flex flex-col gap-5 text-[16px] leading-relaxed">
+            <p className="text-pretty">
+              Estas macronutrientes y estas comidas son exclusivamente para mí. Yo como poca grasa porque no me cae
+              bien, y suplemento todos mis omega 3 porque no me gusta el pescado. Como menos proteína de la que tal vez
+              te imaginabas (peso 210 libras) porque en base a bastantes estudios .7g-.8g por libra es más que
+              suficiente y adivina... también me caen mal. Como MUCHOS carbohidratos porque es lo más importante en el
+              gimnasio, me caen bien y me gustan.
+            </p>
+            <p className="text-pretty">
+              Pero les quiero decir, todo esto es en base a la literatura publicada y a mis resultados. Si a ti te gusta
+              KETO no significa que no vas a poner músculo, lo más importante es entrenar, pero no lo estarás
+              maximizando. TODOS tenemos metas diferentes, yo AMO ir al gym y me gusta maximizar mis resultados de
+              acuerdo a mis metas, pero no me gusta perder tiempo. Por eso mi rutina es corta solo 4 días a la semana y
+              mi plan de comida es sencillo y repetible. No tiene que ser igual para ti. Para ver los mejores
+              resultados PARA TI, haz lo que te funciona, lo que te gusta y lo más importante... LO QUE PUEDAS HACER
+              CONSISTENTEMENTE.
+            </p>
+          </div>
         </Reveal>
       </section>
 
