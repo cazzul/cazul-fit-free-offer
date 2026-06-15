@@ -77,3 +77,24 @@
     scroll-behavior: auto;
   }
 }
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body {
+    scroll-behavior: auto;
+    background: white !important;
+    color: black !important;
+  }
+
+  header.sticky {
+    display: none !important;
+  }
+
+  section {
+    break-inside: avoid-page;
+  }
+}

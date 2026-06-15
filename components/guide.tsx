@@ -2,6 +2,7 @@ import Image from "next/image"
 import { DeficitGuide } from "@/components/deficit-guide"
 import { Hero } from "@/components/hero"
 import { GuideNav } from "@/components/guide-nav"
+import { GuideDownloadButton } from "@/components/guide-download-button"
 import { MacroCalculator } from "@/components/macro-calculator"
 import { Reveal } from "@/components/reveal"
 import {
@@ -129,10 +130,18 @@ function Divider() {
   )
 }
 
-export function Guide() {
+type GuideProps = {
+  showDownload?: boolean
+}
+
+export function Guide({ showDownload = false }: GuideProps) {
   return (
     <div className="bg-background text-foreground">
       <Hero />
+
+      {showDownload && (
+        <GuideDownloadButton className="fixed top-3 right-3 z-50 max-w-[10.5rem] text-right sm:top-4 sm:right-4 sm:max-w-[12rem] md:max-w-none" />
+      )}
 
       <GuideNav />
 

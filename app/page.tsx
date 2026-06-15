@@ -43,8 +43,11 @@ export default function Page() {
 
   return (
     <main className="relative">
-      <div className={showModal && !unlocked ? "pointer-events-none blur-md" : ""}>
-        <Guide />
+      <div
+        id="guia-printable"
+        className={showModal && !unlocked ? "pointer-events-none blur-md" : ""}
+      >
+        <Guide showDownload={unlocked} />
       </div>
       {showModal && !unlocked && <LeadModal onUnlock={handleUnlock} />}
     </main>
