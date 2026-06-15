@@ -88,13 +88,31 @@
     scroll-behavior: auto;
     background: white !important;
     color: black !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   header.sticky {
     display: none !important;
   }
 
+  canvas {
+    display: none !important;
+  }
+
+  /* Reveal/Hero stay opacity-0 until scrolled — print never triggers that */
+  *,
+  *::before,
+  *::after {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
   section {
-    break-inside: avoid-page;
+    break-inside: auto;
+    page-break-inside: auto;
   }
 }

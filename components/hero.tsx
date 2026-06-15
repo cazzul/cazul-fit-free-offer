@@ -27,8 +27,15 @@ export function Hero() {
       setVisible(true)
       return
     }
+
+    const onBeforePrint = () => setVisible(true)
+    window.addEventListener("beforeprint", onBeforePrint)
+
     const t = requestAnimationFrame(() => setVisible(true))
-    return () => cancelAnimationFrame(t)
+    return () => {
+      cancelAnimationFrame(t)
+      window.removeEventListener("beforeprint", onBeforePrint)
+    }
   }, [])
 
   return (

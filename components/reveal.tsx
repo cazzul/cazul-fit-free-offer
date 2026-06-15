@@ -21,8 +21,15 @@ export function Reveal({
       setVisible(true)
       return
     }
+
+    const onBeforePrint = () => setVisible(true)
+    window.addEventListener("beforeprint", onBeforePrint)
+
     const el = ref.current
-    if (!el) return
+    if (!el) {
+      return () => window.removeEventListener("beforeprint", onBeforePrint)
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -33,7 +40,10 @@ export function Reveal({
       { threshold: 0.12 },
     )
     observer.observe(el)
-    return () => observer.disconnect()
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("beforeprint", onBeforePrint)
+    }
   }, [])
 
   return (
