@@ -1,4 +1,10 @@
 import { NextResponse } from "next/server"
+import {
+  getEmailError,
+  getInstagramError,
+  normalizeEmail,
+  normalizeInstagram,
+} from "@/lib/lead-validation"
 
 // Set this in your environment (Vercel → Settings → Environment Variables,
 // and locally in .env.local). It's the Google Apps Script Web App URL.
@@ -7,21 +13,26 @@ const SHEET_WEBHOOK = process.env.GOOGLE_SHEET_WEBHOOK_URL
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { nombre, email, telefono } = body ?? {}
+    const { nombre, email, instagram } = body ?? {}
 
-    // Server-side validation
-    if (!nombre || !email || !telefono) {
+    if (!nombre || !email || !instagram) {
       return NextResponse.json({ ok: false, error: "Faltan campos requeridos." }, { status: 400 })
     }
-    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))
-    if (!emailValid) {
-      return NextResponse.json({ ok: false, error: "El email no es válido." }, { status: 400 })
+
+    const emailError = getEmailError(String(email))
+    if (emailError) {
+      return NextResponse.json({ ok: false, error: emailError }, { status: 400 })
+    }
+
+    const instagramError = getInstagramError(String(instagram))
+    if (instagramError) {
+      return NextResponse.json({ ok: false, error: instagramError }, { status: 400 })
     }
 
     const lead = {
       nombre: String(nombre).trim(),
-      email: String(email).trim(),
-      telefono: String(telefono).trim(),
+      email: normalizeEmail(String(email)),
+      instagram: normalizeInstagram(String(instagram)),
       fecha: new Date().toISOString(),
       fuente: "guia-web",
     }

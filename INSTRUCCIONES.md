@@ -14,7 +14,7 @@ npm install
 npm run dev
 ```
 
-Luego abre **http://localhost:3000** en tu navegador. Vas a ver el gate negro; al llenar nombre/email/teléfono y darle "Acceder gratis", se abre la guía blanca.
+Luego abre **http://localhost:3000** en tu navegador. Vas a ver el gate negro; al llenar nombre, email e Instagram y darle "Acceder gratis", se abre la guía blanca.
 
 > La primera vez `npm install` baja todo lo necesario (necesitas internet). Tarda 1–2 minutos.
 

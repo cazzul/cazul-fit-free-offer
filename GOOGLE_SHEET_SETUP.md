@@ -15,13 +15,13 @@ function doPost(e) {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var data = JSON.parse(e.postData.contents);
     if (sheet.getLastRow() === 0) {
-      sheet.appendRow(['Fecha', 'Nombre', 'Email', 'Telefono', 'Fuente']);
+      sheet.appendRow(['Fecha', 'Nombre', 'Email', 'Instagram', 'Fuente']);
     }
     sheet.appendRow([
       data.fecha || new Date().toISOString(),
       data.nombre || '',
       data.email || '',
-      data.telefono || '',
+      data.instagram || '',
       data.fuente || ''
     ]);
     return ContentService
@@ -57,16 +57,16 @@ La URL va en una variable de entorno llamada **GOOGLE_SHEET_WEBHOOK_URL**.
 
 ## Paso 5 — Pruébalo
 1. Abre tu sitio, llena el formulario con datos de prueba.
-2. Mira tu Google Sheet: debe aparecer una fila nueva con fecha, nombre, email, teléfono.
+2. Mira tu Google Sheet: debe aparecer una fila nueva con fecha, nombre, email e Instagram.
 
 ---
 
 ## Cómo funciona (el flujo completo)
-1. Alguien llena el formulario de tu guía (nombre, email, teléfono).
+1. Alguien llena el formulario de tu guía (nombre, email, Instagram).
 2. El sitio manda esos datos a `/api/lead` (tu propio backend).
 3. `/api/lead` valida, le agrega la fecha y la fuente, y se lo reenvía a tu URL de Google.
 4. El script de Google agrega una fila nueva a tu hoja.
-5. Tú terminas con una **lista viva de todos tus leads** (fecha, nombre, email, teléfono) que crece sola. Esa es tu lista de correos y tu lista para DMs.
+5. Tú terminas con una **lista viva de todos tus leads** (fecha, nombre, email, Instagram) que crece sola. Esa es tu lista de correos y tu lista para DMs.
 
 **Notas:**
 - Si Google falla por lo que sea, la persona igual recibe la guía. No la bloqueamos por un error de guardado.

@@ -2,6 +2,12 @@
 
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
+import {
+  getEmailError,
+  getInstagramError,
+  normalizeEmail,
+  normalizeInstagram,
+} from "@/lib/lead-validation"
 
 type Props = {
   onUnlock: () => void
@@ -14,14 +20,16 @@ export function LeadModal({ onUnlock }: Props) {
   const dialogRef = useRef<HTMLDivElement>(null)
   const [nombre, setNombre] = useState("")
   const [email, setEmail] = useState("")
-  const [telefono, setTelefono] = useState("")
+  const [instagram, setInstagram] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const validate = () => {
     if (!nombre.trim()) return "Escribe tu nombre."
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) return "Escribe un email válido."
-    if (telefono.replace(/\D/g, "").length < 7) return "Escribe un teléfono válido."
+    const emailError = getEmailError(email)
+    if (emailError) return emailError
+    const instagramError = getInstagramError(instagram)
+    if (instagramError) return instagramError
     return null
   }
 
@@ -36,16 +44,28 @@ export function LeadModal({ onUnlock }: Props) {
     setLoading(true)
 
     try {
-      await fetch("/api/lead", {
+      const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre: nombre.trim(), email: email.trim(), telefono: telefono.trim() }),
+        body: JSON.stringify({
+          nombre: nombre.trim(),
+          email: normalizeEmail(email),
+          instagram: normalizeInstagram(instagram),
+        }),
       })
+
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as { error?: string } | null
+        setError(data?.error ?? "No se pudo enviar el formulario. Intenta otra vez.")
+        return
+      }
+
+      onUnlock()
     } catch {
-      // Don't block UX on backend — we still unlock so it's testable.
+      // Don't block UX on network errors — still unlock so the guide is usable.
+      onUnlock()
     } finally {
       setLoading(false)
-      onUnlock()
     }
   }
 
@@ -148,22 +168,26 @@ export function LeadModal({ onUnlock }: Props) {
               type="email"
               placeholder="Email"
               autoComplete="email"
+              inputMode="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="h-12 w-full rounded-sm border border-white/15 bg-white/[0.03] px-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white/50"
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="modal-telefono" className="sr-only">
-              Teléfono
+            <label htmlFor="modal-instagram" className="sr-only">
+              Instagram
             </label>
             <input
-              id="modal-telefono"
-              type="tel"
-              placeholder="Teléfono"
-              autoComplete="tel"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
+              id="modal-instagram"
+              type="text"
+              placeholder="Instagram (sin el @)"
+              autoComplete="username"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
+              value={instagram}
+              onChange={(e) => setInstagram(e.target.value)}
               className="h-12 w-full rounded-sm border border-white/15 bg-white/[0.03] px-4 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white/50"
             />
           </div>
