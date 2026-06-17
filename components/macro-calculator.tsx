@@ -6,8 +6,8 @@ const DEFAULT_WEIGHT = "200"
 const DEFAULT_CALORIES = "2500"
 
 function calcMacros(weightLb: number, calories: number) {
-  const proteinG = Math.round(weightLb * 0.75)
-  const fatG = Math.round(weightLb * 0.35)
+  const proteinG = Math.round(weightLb * 0.7)
+  const fatG = Math.round(weightLb * 0.3)
   const proteinCal = proteinG * 4
   const fatCal = fatG * 9
   const carbsCal = calories - proteinCal - fatCal
@@ -93,7 +93,7 @@ export function MacroCalculator() {
             </div>
           </div>
           <p className="mt-4 text-[14px] leading-relaxed text-muted-foreground">
-            Proteína 0.75 g × lb · Grasa 0.35 g × lb · Carbos = lo que sobra en calorías.
+            Proteína 0.7 g × lb · Grasa 0.3 g × lb · Carbos = lo que sobra en calorías.
           </p>
         </div>
       )}

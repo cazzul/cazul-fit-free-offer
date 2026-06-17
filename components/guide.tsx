@@ -1,5 +1,5 @@
-import Image from "next/image"
 import { DeficitGuide } from "@/components/deficit-guide"
+import { ExerciseSelectionGuide } from "@/components/exercise-selection-guide"
 import { Hero } from "@/components/hero"
 import { GuideNav } from "@/components/guide-nav"
 import { GuideDownloadButton } from "@/components/guide-download-button"
@@ -17,7 +17,7 @@ import {
 const trainingPrinciples = [
   {
     title: "Rangos de reps",
-    text: "Escoge un peso donde puedas hacer 6 reps y ve subiendo las reps semana a semana con ese mismo peso hasta llegar a 10. Cuando llegues a 10, súbele el peso y vuelve a empezar en 6. Esa sensación de progreso es lo mejor del proceso.",
+    text: "Escoge un rango a tu preferencia: 4-8, 6-10, 8-12 o 12-15. Escoge un peso donde puedas hacer el mínimo del rango y ve subiendo las reps semana a semana con ese mismo peso hasta llegar al tope. Cuando llegues al tope, súbele el peso y vuelve a empezar abajo. No hay uno mágico, es lo que tú prefieras.",
   },
   {
     title: "Sets",
@@ -34,48 +34,6 @@ const trainingPrinciples = [
   {
     title: "Descanso",
     text: "Descansa alrededor de 2 minutos entre sets. Después de esos dos minutos, si tu respiración volvió a la normalidad y te sientes bien para el próximo set, ve por ello.",
-  },
-  {
-    title: "Selección de ejercicios",
-    text: "Escoge la variación que te guste. Yo prefiero máquinas porque me dejan entrenar más duro, pero si disfrutas cables, mancuernas o barras, hazlo. Usa lo que tu gym tenga.",
-  },
-]
-
-const exercisesByMuscle: Array<[string, string]> = [
-  ["Pecho", "Press de banca, Press inclinado, Aperturas"],
-  ["Espalda", "Jalón al pecho, Remo"],
-  ["Hombros", "Press militar, Elevaciones laterales"],
-  ["Bíceps", "Curl de bíceps"],
-  ["Tríceps", "Extensión de tríceps, Fondos"],
-  ["Cuádriceps", "Sentadilla o prensa de piernas, Extensión de piernas"],
-  ["Femorales", "Curl femoral, Peso muerto rumano"],
-  ["Glúteos", "Hip thrust"],
-  ["Adductores", "Adducción de piernas"],
-  ["Abductores", "Abducción de piernas"],
-  ["Pantorrillas", "Elevación de talones"],
-  ["Abdomen", "Crunch"],
-]
-
-const exerciseVariations = [
-  {
-    src: "/images/exercises/jalon-polea.png",
-    alt: "Jalón al pecho en polea",
-    caption: "Jalón al pecho en polea",
-  },
-  {
-    src: "/images/exercises/jalon-maquina.png",
-    alt: "Jalón al pecho en máquina",
-    caption: "Jalón al pecho en máquina",
-  },
-  {
-    src: "/images/exercises/curl-predicador-maquina.png",
-    alt: "Curl en máquina de predicador",
-    caption: "Curl en máquina de predicador",
-  },
-  {
-    src: "/images/exercises/curl-martillo.png",
-    alt: "Curl con mancuernas",
-    caption: "Curl con Mancuernas",
   },
 ]
 
@@ -208,48 +166,9 @@ export function Guide({ showDownload = false }: GuideProps) {
 
           <div className="mt-10 flex gap-4 border-t border-border pt-10">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-foreground text-sm font-bold text-background">
-              7
+              6
             </span>
-            <div className="min-w-0 flex-1">
-              <p className="text-[16px] font-bold leading-relaxed">Ejercicios por músculo</p>
-              <p className="mt-1 text-pretty text-[16px] leading-relaxed">
-                Los movimientos principales por grupo muscular. Escoge el que tu gym tenga y el que te guste.
-              </p>
-              <DataTable columns={["Músculo", "Ejercicios"]} rows={exercisesByMuscle} />
-
-              <p className="mt-6 text-pretty text-[16px] leading-relaxed">
-                <span className="font-semibold">Brachialis y braquiorradial (antebrazo):</span> el curl martillo y el
-                curl inverso trabajan esta zona. El braquiorradial también pega el bíceps.
-              </p>
-
-              <div className="mt-8">
-                <p className="text-xs font-bold uppercase tracking-[0.12em]">Variaciones (ejemplo visual)</p>
-                <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4">
-                  {exerciseVariations.map((item) => (
-                    <figure key={item.src} className="border border-border bg-muted/30">
-                      <div className="relative aspect-[4/3] w-full bg-background">
-                        <Image
-                          src={item.src}
-                          alt={item.alt}
-                          fill
-                          className="object-contain p-2"
-                          sizes="(max-width: 720px) 50vw, 360px"
-                        />
-                      </div>
-                      <figcaption className="border-t border-border px-3 py-2 text-center text-[13px] leading-snug text-muted-foreground">
-                        {item.caption}
-                      </figcaption>
-                    </figure>
-                  ))}
-                </div>
-              </div>
-
-              <p className="mt-6 text-pretty text-[16px] leading-relaxed text-muted-foreground">
-                Estos son los movimientos generales, pero obviamente van a haber variaciones. El mismo ejercicio se
-                puede hacer en polea, máquina, mancuerna o barra. Lo importante es que entiendas el patrón del
-                movimiento y lo apliques con lo que tengas disponible en tu gym.
-              </p>
-            </div>
+            <ExerciseSelectionGuide />
           </div>
         </Reveal>
       </section>
@@ -298,7 +217,7 @@ export function Guide({ showDownload = false }: GuideProps) {
             Saca tus macros (de tu peso)
           </h3>
           <p className="mt-4 text-pretty text-[16px] leading-relaxed">
-            Con tus calorías ya en mano, sacas los macros de tu peso: Proteína 0.75 g × tu peso (lb). Grasa 0.35 g × tu
+            Con tus calorías ya en mano, sacas los macros de tu peso: Proteína 0.7 g × tu peso (lb). Grasa 0.3 g × tu
             peso (lb). Carbohidratos: el resto de las calorías.
           </p>
           <p className="mt-4 text-pretty text-[16px] leading-relaxed">
@@ -309,7 +228,8 @@ export function Guide({ showDownload = false }: GuideProps) {
           <Callout title="Importante (léelo)">
             Estos números no te van a funcionar al 100%, son solo un punto de partida, y todo el mundo es diferente.
             Pero es lo más certero para arrancar. Ajusta según resultados: si en 2–3 semanas no se mueve nada, baja
-            100–200 kcal; si bajas demasiado rápido, súbelas.
+            100–200 kcal; si bajas demasiado rápido, súbelas. El rate ideal para bajar de peso es alrededor del 1% de
+            tu peso a la semana.
           </Callout>
         </Reveal>
 
@@ -434,12 +354,12 @@ export function Guide({ showDownload = false }: GuideProps) {
               <DataTable
                 columns={["Ejercicio", "Series"]}
                 rows={[
-                  ["Press plano o mid-flyes", "2"],
-                  ["Press militar (agarre neutral)", "2"],
-                  ["Elevaciones laterales", "2"],
-                  ["Extensión de tríceps (cualquiera)", "2"],
-                  ["Leg extension", "2"],
-                  ["Ab crunch", "2"],
+                  ["Neutral Grip Shoulder Press", "2"],
+                  ["Lateral Raises", "2"],
+                  ["Flat Press", "2"],
+                  ["Low-to-High Flyes", "2"],
+                  ["Tricep Extension", "2"],
+                  ["Leg Extension", "2"],
                 ]}
               />
             </div>
@@ -448,12 +368,12 @@ export function Guide({ showDownload = false }: GuideProps) {
               <DataTable
                 columns={["Ejercicio", "Series"]}
                 rows={[
-                  ["Jalón al pecho (agarre abierto)", "2"],
-                  ["Remo (agarre abierto)", "2"],
+                  ["Lat Pulldown", "2"],
+                  ["Chest-Supported Row", "2"],
                   ["Pullovers", "2"],
-                  ["Bicep curl (cualquiera)", "2"],
-                  ["Hammer curl", "2"],
-                  ["Curl femoral", "2"],
+                  ["Preacher Curl", "2"],
+                  ["Ab Crunch", "2"],
+                  ["Leg Curl", "2"],
                 ]}
               />
             </div>
