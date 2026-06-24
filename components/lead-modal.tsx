@@ -9,14 +9,34 @@ import {
   normalizeInstagram,
 } from "@/lib/lead-validation"
 
+type LeadModalVariant = "guide" | "protocol"
+
+const copy: Record<
+  LeadModalVariant,
+  { title: string; subtitle: string; button: string }
+> = {
+  guide: {
+    title: "Lo que otros cobran cientos de dólares, yo te lo acabo de dar gratis.",
+    subtitle: "Lee la guía completa, gratis.",
+    button: "Acceder gratis",
+  },
+  protocol: {
+    title: "El protocolo de 90 días que uso para llegar a mi mejor versión.",
+    subtitle: "Lee el protocolo completo, gratis.",
+    button: "Acceder gratis",
+  },
+}
+
 type Props = {
   onUnlock: () => void
+  variant?: LeadModalVariant
 }
 
 const FOCUSABLE =
   'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
 
-export function LeadModal({ onUnlock }: Props) {
+export function LeadModal({ onUnlock, variant = "guide" }: Props) {
+  const content = copy[variant]
   const dialogRef = useRef<HTMLDivElement>(null)
   const [nombre, setNombre] = useState("")
   const [email, setEmail] = useState("")
@@ -48,6 +68,7 @@ export function LeadModal({ onUnlock }: Props) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          fuente: variant,
           nombre: nombre.trim(),
           email: normalizeEmail(email),
           instagram: normalizeInstagram(instagram),
@@ -125,11 +146,11 @@ export function LeadModal({ onUnlock }: Props) {
           id="lead-modal-title"
           className="mt-5 text-center font-display text-[1.65rem] leading-[1.15] tracking-tight sm:text-3xl"
         >
-          Lo que otros cobran cientos de dólares, yo te lo acabo de dar gratis.
+          {content.title}
         </h2>
 
         <p className="mt-4 text-center text-sm leading-relaxed text-white/55">
-          Lee la guía completa, gratis.
+          {content.subtitle}
         </p>
 
         <div className="mt-3 flex justify-center text-white/35" aria-hidden="true">
@@ -203,7 +224,7 @@ export function LeadModal({ onUnlock }: Props) {
             disabled={loading}
             className="mt-2 flex h-12 w-full items-center justify-center rounded-sm bg-white text-base font-semibold text-[#0E0E0E] transition hover:bg-white/90 disabled:opacity-60"
           >
-            {loading ? "Cargando…" : "Acceder gratis"}
+            {loading ? "Cargando…" : content.button}
           </button>
 
           <p className="mt-1 text-center text-xs text-white/40">Te doy acceso al instante. Sin spam.</p>

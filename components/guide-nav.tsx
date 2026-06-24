@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { BackToHomeButton } from "@/components/back-to-home-button"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const SECTIONS = [
   { id: "entrenamiento", label: "Entrenamiento" },
@@ -57,6 +59,10 @@ export function GuideNav() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-sm">
+      <div className="mx-auto flex max-w-[720px] items-center justify-between px-5 pt-3.5">
+        <BackToHomeButton />
+        <ThemeToggle />
+      </div>
       <nav className="mx-auto flex max-w-[720px] items-center justify-between px-5 py-3.5">
         <span className="font-mono text-[10px] font-medium uppercase tracking-[0.12em] text-foreground sm:text-xs">
           Guía de Entrenamiento y Nutrición

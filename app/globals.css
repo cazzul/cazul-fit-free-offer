@@ -4,7 +4,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
+.theme-marketing-actions {
+  --primary: #8a6d3b;
+  --primary-foreground: #f7f4ef;
+  --border: #ddd5c8;
+  --foreground: #1c1814;
+  --surface: #fff;
+  --surface-muted: #f0ebe3;
+  --ring: #8a6d3b;
+}
+
+.dark .theme-marketing-actions {
+  --primary: #c4a35a;
+  --primary-foreground: #12100e;
+  --border: #3a342c;
+  --foreground: #f3efe8;
+  --surface: #1a1714;
+  --surface-muted: #242019;
+  --ring: #c4a35a;
+}
+
+.theme-guide {
   --background: oklch(0.985 0.002 90);
   --foreground: oklch(0.12 0.01 60);
   --card: oklch(1 0 0);
@@ -15,7 +35,7 @@
   --primary-foreground: oklch(0.985 0.002 90);
   --secondary: oklch(0.96 0.005 90);
   --secondary-foreground: oklch(0.12 0.01 60);
-  --muted: oklch(0.94 0.005 90);
+  --muted: oklch(0.965 0.045 82);
   --muted-foreground: oklch(0.45 0.02 60);
   --accent: oklch(0.92 0.01 90);
   --accent-foreground: oklch(0.12 0.01 60);
@@ -24,6 +44,44 @@
   --input: oklch(0.92 0.01 90);
   --ring: oklch(0.12 0.01 60);
   --radius: 0.25rem;
+  --surface: #fff;
+  --surface-muted: #f0ebe3;
+  --cta-primary: #8a6d3b;
+  --cta-primary-foreground: #f7f4ef;
+  --font-sans: var(--font-instrument), 'Instrument Sans', system-ui, sans-serif;
+  --font-display: var(--font-instrument-serif), 'Instrument Serif', Georgia, serif;
+  --font-mono: var(--font-jetbrains), 'JetBrains Mono', monospace;
+  color-scheme: light;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.dark .theme-guide {
+  --background: oklch(0.14 0.012 55);
+  --foreground: oklch(0.94 0.008 90);
+  --card: oklch(0.18 0.012 55);
+  --card-foreground: oklch(0.94 0.008 90);
+  --popover: oklch(0.18 0.012 55);
+  --popover-foreground: oklch(0.94 0.008 90);
+  --primary: oklch(0.94 0.008 90);
+  --primary-foreground: oklch(0.14 0.012 55);
+  --secondary: oklch(0.22 0.012 55);
+  --secondary-foreground: oklch(0.94 0.008 90);
+  --muted: oklch(0.22 0.02 55);
+  --muted-foreground: oklch(0.68 0.02 80);
+  --accent: oklch(0.24 0.015 55);
+  --accent-foreground: oklch(0.94 0.008 90);
+  --destructive: oklch(0.62 0.2 27);
+  --border: oklch(0.28 0.012 55);
+  --input: oklch(0.24 0.012 55);
+  --ring: oklch(0.72 0.06 82);
+  --surface: #1a1714;
+  --surface-muted: #242019;
+  --cta-primary: #c4a35a;
+  --cta-primary-foreground: #12100e;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -55,19 +113,21 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground text-[17px] leading-relaxed;
-  }
   html {
     scroll-behavior: smooth;
+  }
+
+  .theme-guide {
+    @apply min-h-svh bg-background text-foreground text-[17px] leading-relaxed;
+  }
+
+  .theme-guide * {
+    @apply border-border outline-ring/50;
   }
 }
 
 @layer utilities {
-  .font-display {
+  .theme-guide .font-display {
     font-family: var(--font-display);
   }
 }

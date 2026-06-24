@@ -19,7 +19,7 @@ export function SectionBar({ children }: { children: React.ReactNode }) {
 
 export function Callout({ title, children, className = "" }: { title: string; children: React.ReactNode; className?: string }) {
   return (
-    <div className={`my-7 border-l-2 border-foreground bg-muted px-5 py-4 ${className}`}>
+    <div className={`my-7 border-l-2 border-primary bg-muted px-5 py-4 ${className}`}>
       <p className="text-xs font-bold uppercase tracking-[0.15em] text-foreground">{title}</p>
       <p className="mt-2 text-[16px] leading-relaxed text-foreground">{children}</p>
     </div>

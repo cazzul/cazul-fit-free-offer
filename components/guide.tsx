@@ -1,3 +1,4 @@
+import { CoachingCta } from "@/components/coaching-cta"
 import { DeficitGuide } from "@/components/deficit-guide"
 import { ExerciseSelectionGuide } from "@/components/exercise-selection-guide"
 import { Hero } from "@/components/hero"
@@ -163,8 +164,10 @@ export function Guide({ showDownload = false }: GuideProps) {
               </li>
             ))}
           </ol>
+        </Reveal>
 
-          <div className="mt-10 flex gap-4 border-t border-border pt-10">
+        <Reveal className="mt-10">
+          <div className="flex gap-4 border-t border-border pt-10">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center bg-foreground text-sm font-bold text-background">
               6
             </span>
@@ -434,6 +437,8 @@ export function Guide({ showDownload = false }: GuideProps) {
           <p className="mt-12 font-display text-4xl tracking-tight sm:text-5xl">¡Vamo pa&apos; encima!</p>
         </Reveal>
       </section>
+
+      <CoachingCta />
 
       <footer className="border-t border-border">
         <div className="mx-auto max-w-[720px] px-5 py-10 text-center font-mono text-xs uppercase tracking-[0.15em] text-muted-foreground">
