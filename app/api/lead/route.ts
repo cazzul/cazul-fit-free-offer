@@ -10,6 +10,7 @@ import {
   normalizeEmail,
   normalizeInstagram,
 } from "@/lib/lead-validation"
+import { syncLeadToHubSpot } from "@/lib/hubspot"
 
 const SHEET_WEBHOOK = process.env.GOOGLE_SHEET_WEBHOOK_URL
 
@@ -56,13 +57,15 @@ export async function POST(request: Request) {
       )
     }
 
-    const lead = buildSheetLeadPayload({
+    const leadInput = {
       fuente,
       nombre: String(nombre).trim(),
       email: normalizeEmail(String(email)),
       instagram: normalizeInstagram(String(instagram)),
       ...(fuente === "coaching" ? readCoachingFields(body) : {}),
-    })
+    }
+
+    const lead = buildSheetLeadPayload(leadInput)
 
     if (SHEET_WEBHOOK) {
       try {
@@ -88,6 +91,9 @@ export async function POST(request: Request) {
         lead,
       )
     }
+
+    // Mirror the lead into HubSpot (non-blocking; never throws).
+    await syncLeadToHubSpot(leadInput)
 
     return NextResponse.json({ ok: true })
   } catch (error) {
