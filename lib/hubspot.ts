@@ -52,6 +52,18 @@ function contactProperties(input: LeadPayload): Record<string, string> {
     : undefined
   if (trainingCode) props.training_experience = trainingCode
   if (input.biggestObstacle) props.biggest_obstacle = input.biggestObstacle
+
+  // Always capture the raw application answers as plain text so nothing is lost
+  // even when a dropdown option doesn't map (goal/training are strict enums).
+  const summary = [
+    input.mainGoal && `Meta: ${input.mainGoal}`,
+    input.trainingDuration && `Entrenando: ${input.trainingDuration}`,
+    input.biggestObstacle && `Obstáculo: ${input.biggestObstacle}`,
+    input.readyToChange && `¿Listo para cambiar?: ${input.readyToChange}`,
+    input.monthlyInvestment && `Inversión/mes: ${input.monthlyInvestment}`,
+  ].filter(Boolean) as string[]
+  if (summary.length) props.message = summary.join(" | ")
+
   return props
 }
 
