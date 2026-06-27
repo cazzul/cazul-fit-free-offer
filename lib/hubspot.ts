@@ -31,8 +31,26 @@ function contactProperties(input: LeadPayload): Record<string, string> {
     hs_lead_status: "NEW",
   }
   // Only the coaching application carries these qualifying fields.
-  if (input.mainGoal) props.goal = input.mainGoal
-  if (input.trainingDuration) props.training_experience = input.trainingDuration
+  // goal & training_experience are HubSpot dropdowns — map the Spanish form
+  // labels to HubSpot's internal option codes. Unmapped values are skipped so
+  // the upsert never fails on an invalid option.
+  const GOAL_MAP: Record<string, string> = {
+    "Perder grasa": "fat_loss",
+    "Recomposición": "recomp",
+    // "Ganar músculo" -> add a "muscle_gain" option in HubSpot, then map it here.
+  }
+  const TRAINING_MAP: Record<string, string> = {
+    "Menos de 6 meses": "less_than_6_months",
+    "6 meses a 1 año": "6_to_12_months",
+    "1 a 3 años": "1_to_2_years",
+    "3 a 5 años": "3_plus_years",
+  }
+  const goalCode = input.mainGoal ? GOAL_MAP[input.mainGoal] : undefined
+  if (goalCode) props.goal = goalCode
+  const trainingCode = input.trainingDuration
+    ? TRAINING_MAP[input.trainingDuration]
+    : undefined
+  if (trainingCode) props.training_experience = trainingCode
   if (input.biggestObstacle) props.biggest_obstacle = input.biggestObstacle
   return props
 }
