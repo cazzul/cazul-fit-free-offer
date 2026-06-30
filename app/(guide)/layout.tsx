@@ -1,18 +1,20 @@
 import type { Metadata } from "next"
-import { Instrument_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google"
+import { Cormorant_Garamond, Geist_Mono, Inter } from "next/font/google"
 
-const instrumentSans = Instrument_Sans({
+// Fuentes igualadas al sitio principal: Inter (sans) + Cormorant Garamond (serif/display) + Geist Mono.
+// Se conservan los nombres de variables CSS para no tocar globals.css.
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-instrument",
 })
 
-const instrumentSerif = Instrument_Serif({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
   variable: "--font-instrument-serif",
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains",
 })
@@ -47,7 +49,7 @@ export default function GuideLayout({
 }>) {
   return (
     <div
-      className={`theme-guide ${instrumentSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans`}
+      className={`theme-guide ${inter.variable} ${cormorant.variable} ${geistMono.variable} font-sans`}
     >
       {children}
     </div>
