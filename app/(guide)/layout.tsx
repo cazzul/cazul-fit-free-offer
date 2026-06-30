@@ -1,10 +1,11 @@
 import type { Metadata } from "next"
-import { Cormorant_Garamond, Geist_Mono, Inter } from "next/font/google"
+import { Cormorant_Garamond, Geist_Mono, IBM_Plex_Serif } from "next/font/google"
 
-// Fuentes igualadas al sitio principal: Inter (sans) + Cormorant Garamond (serif/display) + Geist Mono.
+// Cuerpo = IBM Plex Serif (serif). Display = Cormorant Garamond. Mono = Geist Mono.
 // Se conservan los nombres de variables CSS para no tocar globals.css.
-const inter = Inter({
+const inter = IBM_Plex_Serif({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-instrument",
 })
 

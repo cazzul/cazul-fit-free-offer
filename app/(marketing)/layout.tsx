@@ -1,4 +1,4 @@
-import { Cormorant_Garamond, Geist_Mono, Inter } from "next/font/google"
+import { Cormorant_Garamond, Geist_Mono, IBM_Plex_Serif } from "next/font/google"
 import type { Metadata } from "next"
 import { Header } from "@/components/landing/header"
 import "./landing-globals.css"
@@ -9,9 +9,11 @@ const cormorant = Cormorant_Garamond({
   weight: ["400", "500", "600", "700"],
 })
 
-const inter = Inter({
+// Cuerpo del sitio = IBM Plex Serif (serif), conservando la variable --font-inter.
+const inter = IBM_Plex_Serif({
   variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 })
 
 const geistMono = Geist_Mono({
